@@ -1,0 +1,189 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/template/template.xhtml">
+    <ui:define name="head">
+        <f:loadBundle basename="recruitment.bundles.recruitment"  var="localBundle"></f:loadBundle>
+    </ui:define>
+
+    <ui:define name="title">
+        #{localBundle.PLAN_APPOINTMENT_TITLE}
+    </ui:define>
+    <ui:define name="description">
+        #{localBundle.PLAN_APPOINTMENT_DESC}
+    </ui:define>
+
+    <ui:define name="implementation">
+        <f:event type="preRenderView" listener="#{globalBean.isUserAuthorized()}" />
+        <h:form id="mainForm" target="_blank">
+            <div class="ui-g">
+
+                <div class="ui-g-9 ui-md-9">
+                    <p:panel header="#{localBundle.PLAN_APPOINTMENT_TITLE}" >
+
+                        <p:schedule  id="schedule" value="#{addAppointmentBean.eventModel}" widgetVar="myschedule" timeZone="GMT+3" axisFormat="HH" firstHour="8" timeFormat="HH:mm" showWeekNumbers="false">
+
+                            <p:ajax event="dateSelect" listener="#{addAppointmentBean.onDateSelect}" update="saveArea" oncomplete="PF('eventDialogWid').show();" />
+                            <p:ajax event="eventSelect" listener="#{addAppointmentBean.onEventSelect}" update="saveArea"  />
+                            <p:ajax event="eventMove" listener="#{addAppointmentBean.onEventMove}" />
+                            <p:ajax event="eventResize" listener="#{addAppointmentBean.onEventResize}"  />
+
+                        </p:schedule>
+                    </p:panel>
+                </div>  
+                <div class="ui-g-3 ui-md-3">
+                    <p:panel id="filterArea" header="Filter" >
+
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-4 ui-md-4">
+                                <h:outputLabel value="Candidate" />
+                            </div>  
+                            <div class="ui-g-8 ui-md-8">
+                                <p:selectOneMenu value="#{addAppointmentBean.filter.appUserId}" >
+                                    <f:selectItem itemLabel="#{bundle.ALL}" />
+                                    <f:selectItems value="#{addAppointmentBean.candList}"></f:selectItems>
+                                </p:selectOneMenu>  
+                            </div> 
+                        </div>                     
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-4 ui-md-4">
+                                <h:outputLabel value="Purpose" />
+                            </div>  
+                            <div class="ui-g-8 ui-md-8">
+                                <p:inputText value="#{addAppointmentBean.filter.purpose}"></p:inputText> 
+                            </div> 
+                        </div>  
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-4 ui-md-4">
+                                <h:outputLabel value="Explain" />
+                            </div>  
+                            <div class="ui-g-8 ui-md-8">
+                                <p:inputTextarea value="#{addAppointmentBean.filter.purpose}"></p:inputTextarea>
+                            </div> 
+                        </div>
+
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-4 ui-md-4">
+                                <h:outputLabel value="Start Date" />
+                            </div>  
+                            <div class="ui-g-8 ui-md-8">
+                                <p:calendar  value="#{addAppointmentBean.filter.startDate}" pattern="#{globalBean.datePattern}"  showButtonPanel="true" />  
+                            </div> 
+                        </div>    
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-4 ui-md-4">
+                                <h:outputLabel value="End Date" />
+                            </div>  
+                            <div class="ui-g-8 ui-md-8">
+                                <p:calendar  value="#{addAppointmentBean.filter.finishDate}" pattern="#{globalBean.datePattern}"  showButtonPanel="true" /> 
+                            </div> 
+                        </div>
+                                                  
+                        <div class="ui-g ui-fluid">
+                            <p:commandButton icon="ui-icon-search"  value="#{bundle.ARA}" process="filterArea" update="schedule" action="#{addAppointmentBean.initEventModel()}"></p:commandButton>
+                        </div>                    
+                    </p:panel> 
+                    <p:spacer></p:spacer>
+
+                    <p:spacer></p:spacer>
+ 
+                </div>
+            </div>
+
+
+            <p:dialog widgetVar="eventDialogWid" header="Detail" showEffect="clip" hideEffect="clip" modal="true" width="800">
+                <p:panel id="saveArea" header="Save an appointment" >
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="Id" />
+                        </div>  
+                        <div class="ui-g-3 ui-md-3">
+                            <p:inputText readonly="true" value="#{addAppointmentBean.event.data.id}" />
+                        </div> 
+                        <div class="ui-g-2 ui-md-2">
+                            <h:outputLabel value="Record Date" />
+                        </div>  
+                        <div class="ui-g-4 ui-md-4">
+                            <p:calendar disabled="true"  value="#{addAppointmentBean.event.data.recordDate}" pattern="#{globalBean.dateTimePattern}"  showButtonPanel="true" />  
+                        </div> 
+                    </div>
+                                       
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="Candidate" />
+                        </div>  
+                        <div class="ui-g-9 ui-md-9">
+                            <p:selectOneMenu value="#{addAppointmentBean.record.candidateId}" >
+                                <f:selectItem itemLabel="#{bundle.SELECT}" />
+                                <f:selectItems value="#{addAppointmentBean.candList}"></f:selectItems>
+                            </p:selectOneMenu>  
+                        </div> 
+                    </div>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="Purpose" />
+                        </div>  
+                        <div class="ui-g-9 ui-md-9">
+                            <p:inputText  value="#{addAppointmentBean.event.data.purpose}"></p:inputText> 
+                        </div> 
+                    </div>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="Start Date" />
+                        </div>  
+                        <div class="ui-g-3 ui-md-3">
+                            <p:calendar  value="#{addAppointmentBean.event.data.startDate}" pattern="#{globalBean.dateTimePattern}" showButtonPanel="true" > 
+                                <p:ajax event="change" process="@this" update="endDate" listener="#{addAppointmentBean.startDateChange}" />
+                            </p:calendar>
+                        </div> 
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="End Date" />
+                        </div>  
+                        <div class="ui-g-3 ui-md-3">
+                            <p:calendar id="endDate" value="#{addAppointmentBean.event.data.finishDate}" pattern="#{globalBean.dateTimePattern}"  showButtonPanel="true" />  
+                        </div> 
+                    </div>
+                                       
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="Phone" />
+                        </div>  
+                        <div class="ui-g-9 ui-md-9">
+                            <p:inputMask  mask="(999) 9999" value="#{addAppointmentBean.event.data.phone}"></p:inputMask> 
+                        </div> 
+                    </div>
+                    <div class="ui-g ui-fluid">
+                        <div class="ui-g-3 ui-md-3">
+                            <h:outputLabel value="Purpose" />
+                        </div>  
+                        <div class="ui-g-9 ui-md-9">
+                            <p:inputTextarea value="#{addAppointmentBean.event.data.purpose}"></p:inputTextarea>
+                        </div> 
+                    </div>                     
+
+                    <p:toolbar>
+                        <p:toolbarGroup align="left" >
+                            <p:commandButton value="#{bundle.KAYDET}" icon="ui-icon-disk" action="#{addAppointmentBean.saveRecord}" process="saveArea" update="saveArea,schedule,globalMsg"  />
+                        </p:toolbarGroup> 
+                        <p:toolbarGroup align="right">
+                            <c:if test="#{globalBean.isUserAuthorized()}">
+                                <p:commandButton value="Remove" icon="fa fa-rotate-left" action="#{addAppointmentBean.removeRecord}" process="saveArea" update="schedule,globalMsg"  >
+                                    <p:confirm  message="Are you sure to remove this data?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </c:if>
+                        </p:toolbarGroup> 
+
+                    </p:toolbar>                       
+
+                </p:panel>
+            </p:dialog>    
+
+        </h:form>
+
+    </ui:define>
+
+
+</ui:composition>

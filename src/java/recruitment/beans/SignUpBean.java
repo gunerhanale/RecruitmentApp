@@ -40,9 +40,11 @@ public class SignUpBean {
         record.setUserId(dbService.getSequenceBigIntValue("seq_user_id"));
         record.setLastLoginDate(CommonUtil.getCurrentTime());
         dbService.edit(record);
-        init();
-        JsfHelper.addSuccessMessage(Messages.getSaveSuccessMsg());
-        JsfHelper.getExternalContext().redirect("/" + Globals.APP_NAME + "/index.xhtml?faces-redirect=true");
+        
+//        JsfHelper.addSuccessMessage(Messages.getSaveSuccessMsg());
+//        JsfHelper.getExternalContext().redirect("/" + Globals.APP_NAME + "/index.xhtml?faces-redirect=true");
+        JsfHelper.getHttpSession().setAttribute("user", record);
+        JsfHelper.getExternalContext().redirect("/" + Globals.APP_NAME + "/public/home.xhtml?faces-redirect=true");
     }
 
     public AppUser getRecord() {

@@ -246,6 +246,15 @@ public class CommonUtil {
 
         return str;
     }
+    
+    public static String toDbStartsWithStr(String str) {
+
+        return toDbStr(str) + "%";
+    }
+
+    public static String toDbContainsStr(String str) {
+        return "%" + toDbStr(str) + "%";
+    }
 
     public static Date toDate(String dateStr, String pattern) {
         if (dateStr == null) {
