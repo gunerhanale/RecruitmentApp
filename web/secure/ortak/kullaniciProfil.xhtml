@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml">
+    <ui:define name="title">
+        App User Profile
+
+    </ui:define>
+    <ui:define name="description">
+        Your user profile information is below.
+    </ui:define>
+    <ui:define name="implementation">
+        <h:form id="mainForm" >
+
+            <!-- highlight area start-->
+            <div class="ContentSideSections overHidden">
+
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-4">
+                        <p:panel header="Kullanıcı bilgileri">
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-4">
+                                    Name
+                                </div>
+                                <div class="ui-g-8">
+                                    <p:inputText readonly="true" value="#{user.fullName}"/>
+                                </div>
+                            </div>
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-4">
+                                    UserName
+                                </div>
+                                <div class="ui-g-8">
+                                    <p:inputText readonly="true" value="#{user.userName}"/>
+                                </div>
+                            </div>                            
+                            <div class="ui-g ui-fluid">
+                                <div class="ui-g-4">
+                                    Contact
+                                </div>
+                                <div class="ui-g-8">
+                                    <p:inputText readonly="true" value="#{user.emailOrPhone}"/>
+                                </div>
+                            </div> 
+                                                         
+                        </p:panel>
+                    </div>
+                   
+                </div>
+
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,56 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY bull "&#8226;">
+    <!ENTITY copy "&#169;">
+    ]>
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                    template="/template/template.xhtml">
+
+        <ui:define name="title">
+            Main Page
+        </ui:define>
+        <ui:define name="description">
+            
+        </ui:define>     
+
+        <ui:define name="implementation">
+            <h:form rendered="#{empty user}">
+                <div class="ContentSideSections fontSize30 TextShadow orange regularFont dispBlock">
+                    <h:outputLink  value="../index.xhtml">
+                        Please click here to login.
+                    </h:outputLink>  
+                </div>
+
+            </h:form> 
+            <h:form id="mainForm" >
+
+                <!-- highlight area start-->
+                <div class="ContentSideSections overHidden">
+
+                    <div class="Content66  overHidden" >,
+                        <div class="ui-g ui-fluid">
+                           <c:if test="#{user != null}">
+                            <div class="ui-g-4">
+                                <div class="PropertyBox TextShadow">
+                                    <h:graphicImage name="main/images/snipicons/tint-128.png" />
+                                    <span class="PropertyTopic boldFont">Recruitment App</span>
+                                    <span class="PropertyText">You can follow up the candidates information with this app.</span>
+                                    <a class="SubMenuLink" href="#{request.contextPath}/secure/recruitment/addCandidate.xhtml">&bull; Save Candidate</a>   
+                                </div>                            
+                            </div> 
+                            </c:if>
+                            
+                        </div>
+
+                    </div>                
+
+                </div>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>

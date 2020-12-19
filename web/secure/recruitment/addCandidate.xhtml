@@ -1,0 +1,168 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="head">
+        <f:loadBundle basename="recruitment.bundles.recruitment"  var="localBundle"></f:loadBundle>
+    </ui:define>
+    <ui:define name="title">
+        Add New Candidates
+    </ui:define>
+    <ui:define name="description">
+        You can register candidates on this screen.
+    </ui:define>
+    <ui:define name="implementation">
+        <f:event type="preRenderView" listener="#{globalBean.isUserAuthorized()}" />
+        
+        <h:form id="mainForm">
+            <p:panel header="Candidate Adding" id="saveArea">
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-2 ui-md-2 bold">
+                        Candidate Id
+                    </div>
+                     <div class="ui-g-2 ui-md-2">
+                         <p:inputText readonly="true" value="#{addCandidateBean.record.id}" />
+                    </div>
+                </div>   
+
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-2 ui-md-2 bold">
+                        Full Name
+                    </div>
+                    <div class="ui-g-2 ui-md-2">
+                        <p:inputText  value="#{addCandidateBean.record.fullName}" required="true" requiredMessage="#{localBundle.FULLNAME_NECESSARY}"/>
+                    </div>
+                </div> 
+                
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-2 ui-md-2 bold">
+                        Email address
+                    </div>
+                    <div class="ui-g-2 ui-md-2">
+                        <p:inputText  value="#{addCandidateBean.record.emailAddres}" required="true" requiredMessage="#{localBundle.EMAIL_NECESSARY}"/>
+                    </div>
+                </div> 
+                
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-2 ui-md-2 bold">
+                        Phone country code 
+                    </div>
+                    <div class="ui-g-2 ui-md-2">
+                        <p:selectOneMenu value="#{addCandidateBean.record.mobileCountryCode}" >
+                                <f:selectItem itemLabel="#{bundle.SELECT}" />
+                                <f:selectItems value="#{globalBean.countyPhoneCodeList}"></f:selectItems>
+                            </p:selectOneMenu> 
+                    </div>
+                </div> 
+                
+                 <div class="ui-g ui-fluid">
+                    <div class="ui-g-2 ui-md-2 bold">
+                        Mobile phone number
+                    </div>
+                    <div class="ui-g-2 ui-md-2">
+                        <p:inputText  value="#{addCandidateBean.record.mobilePhoneNumber}" required="true" requiredMessage="#{localBundle.PHONE_NECESSARY}"/>
+                    </div>
+                </div> 
+
+                <div class="ui-g ui-fluid">
+                    <div class="ui-g-2 ui-md-2 bold">
+                        Explain
+                    </div>
+                    <div class="ui-g-4 ui-md-4">
+                        <p:inputTextarea value="#{addCandidateBean.record.explanation}" />
+                    </div>
+                </div> 
+                
+                 <p:toolbar id="saveAreaToolBar">
+                <p:toolbarGroup align="left">
+                    <p:commandButton value="Save" icon="ui-icon-disk" process="saveArea,  saveAreaToolBar" update="saveArea,listArea, globalMsg" action="#{addCandidateBean.saveRecord()}"/>
+                    <p:separator />
+                    <p:commandButton value="Refresh" icon="ui-icon-document" process="@this" update="saveArea" action="#{addCandidateBean.newRecord()}"/>
+                </p:toolbarGroup> 
+
+                <p:toolbarGroup align="right">    
+                </p:toolbarGroup>     
+            </p:toolbar>
+            </p:panel>
+
+            <p:panel header="Candidates" id="listArea">
+                <p:dataTable id="tbl" paginator="true" rows="10" var="row" value="#{addCandidateBean.records}" >
+
+
+                    <p:column width="5">
+                        <f:facet name="header">
+                            <h:outputText value="Id" />
+                        </f:facet>
+                        <h:outputText value="#{row.id}" />
+                    </p:column>
+
+                    <p:column width="100">
+                        <f:facet name="header">
+                            <h:outputText value="Full Name"/>
+                        </f:facet>
+                        <h:outputText value="#{row.fullName}" />
+                    </p:column>
+                    
+                    <p:column width="150">
+                        <f:facet name="header">
+                            <h:outputText value="Phone"/>
+                        </f:facet>
+                        <h:outputText value="#{row.mobilePhoneNumber}" />
+                    </p:column>
+
+                    <p:column width="200">
+                        <f:facet name="header">
+                            <h:outputText value="Email"/>
+                        </f:facet>
+                        <h:outputText value="#{row.emailAddres}" />
+                    </p:column>
+
+                    <p:column exportable="false" style="width:8px;text-align: center">
+                        <f:facet name="header">
+                            <h:outputText value="Fetch"/>
+                        </f:facet>                        
+                        <p:commandButton icon="ui-icon-pencil" process="@this" update=":mainForm:saveArea" action="#{addCandidateBean.selectRecord(row)}" />
+                    </p:column>
+                    <p:column exportable="false" style="width:12px;text-align: center">
+                        <f:facet name="header">
+                            <h:outputText value="Remove"/>
+                        </f:facet>                        
+                        <p:commandButton icon="fa fa-trash-o" process="@this" update=":mainForm:listArea" action="#{addCandidateBean.removeRecord(row)}" >
+                            <p:confirm message="Are you sure to remove this data?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <h3>Print</h3>
+                <h:commandLink immediate="true">
+                    <p:graphicImage height="32" name="/demo/images/excel.png" />
+                    <p:dataExporter type="xls"  target="tbl" fileName="data" pageOnly="true"/>
+                </h:commandLink>
+
+                <h:commandLink  immediate="true">
+                    <p:graphicImage height="32" name="/demo/images/pdf.png" />
+                    <p:dataExporter type="pdf" target="tbl" fileName="data" pageOnly="true" />
+                </h:commandLink>
+
+                <h:commandLink  immediate="true">
+                    <p:graphicImage height="32" name="/demo/images/csv.png" />
+                    <p:dataExporter type="csv" target="tbl" fileName="data" pageOnly="true" />
+                </h:commandLink>
+
+                <h:commandLink  immediate="true">
+                    <p:graphicImage height="32" name="/demo/images/xml.png" />
+                    <p:dataExporter type="xml" target="tbl" fileName="data" pageOnly="true" />
+                </h:commandLink>                
+            </p:panel>
+
+           
+        </h:form>  
+
+    </ui:define>
+    <ui:define name="source">
+
+    </ui:define>
+</ui:composition>

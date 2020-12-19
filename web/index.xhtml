@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/loginTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="main/js/index.js" target="head" />
+
+        <!-- highlight area start-->
+        <div class="ContentSideSections overHidden">
+            <div class="Content33 floatLeft overHidden TextShadow" style="min-width: 500px;">
+                <h:form>
+                    <span class="defaultTopic regularFont dispTable">Login</span>
+                    <p:panel>
+                        <div class="ui-g ui-fluid" >
+                            <div class="ui-g-5">
+                                <h:outputText class="" value="Username"/>
+                            </div>
+                            <div class="ui-g-7">
+                                <p:inputText value="#{loginBean.record.userName}" placeholder="Enter username" required="true" requiredMessage="Please enter your username!"/>
+                            </div>                            
+                        </div>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-5">
+                                <h:outputText value="Password" />
+                            </div>
+                            <div class="ui-g-7">
+                                <p:password value="#{loginBean.record.password}" placeholder="Enter password"  required="true" requiredMessage="Please enter your password!"/>
+                            </div>                            
+                        </div>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-12">
+                                <p:commandButton  value="Sign in" icon="fa fa-unlock" action="#{loginBean.login}" process="@form" update="globalMsg" styleClass="BigButton ui-priority-primary" />
+                            </div>
+                        </div>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-12">
+                                <a href="#{request.contextPath}/public/signUp.xhtml"><i class="fa fa-plus"/><span class="ui-text"> Sign up</span></a> 
+                            </div>
+                        </div>
+
+                    </p:panel>
+                </h:form>                
+            </div>
+        </div>
+        <!-- highlight area end-->
+
+
+        <!-- bottom boxes area end-->
+    </ui:define>
+
+</ui:composition>

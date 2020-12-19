@@ -1,0 +1,198 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY bull "&#8226;">
+    <!ENTITY copy "&#169;">
+    ]>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:ui="http://java.sun.com/jsf/facelets"
+          xmlns:p="http://primefaces.org/ui"
+          xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/main/images/favicon.png" />
+            </f:facet>
+            <title>Corporations Apps</title>
+            <h:outputStylesheet name="main/css/showcase.css" />
+            <h:outputStylesheet name="main/css/perfect-scrollbar.css" />
+            <h:outputStylesheet name="main/css/sh.css" />
+            <h:outputScript name="jquery/jquery.js" library="primefaces" />
+            <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" />
+            <h:outputScript name="main/js/perfect-scrollbar.js" />
+            <h:outputScript name="main/js/showcase.js" />
+            <ui:insert name="head" />
+            <script type="text/javascript">
+                var _gaq = _gaq || [];
+                _gaq.push(['_setAccount', 'UA-12200033-1']);
+                _gaq.push(['_trackPageview']);
+
+                (function () {
+                    var ga = document.createElement('script');
+                    ga.type = 'text/javascript';
+                    ga.async = true;
+                    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                    var s = document.getElementsByTagName('script')[0];
+                    s.parentNode.insertBefore(ga, s);
+                })();
+            </script>
+            <script type="text/javascript">
+                PrimeFaces.locales['tr'] = {
+                    closeText: 'tamam',
+                    prevText: 'geri',
+                    nextText: 'ileri',
+                    currentText: 'bugün',
+                    monthNames: ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran',
+                        'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'],
+                    monthNamesShort: ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz',
+                        'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'],
+                    dayNames: ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'],
+                    dayNamesShort: ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
+                    dayNamesMin: ['Pz', 'Pt', 'Sa', 'Ça', 'Pe', 'Cu', 'Ct'],
+                    weekHeader: 'Hf',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: '',
+                    month: 'Ay',
+                    week: 'Hafta',
+                    day: 'Gün',
+                    timeText: "Zaman",
+                    hourText: "Saat",
+                    minuteText: "Dakika",
+                    allDayText: 'Tüm Gün'
+                };
+            </script>            
+        </h:head>
+
+
+
+        <!-- PC CONTENT STARTS HERE-->
+        <div class="PC">
+
+            <div id="MENUSIDE">
+                <div id="MENUSIDEindent">
+                    <span>
+                        <br/><br/>
+                            
+                        <center><h:graphicImage height="200px" name="main/images/asterisk-128.png" /></center> 
+                    </span>
+                </div>        
+            </div>
+
+            <script type="text/javascript">
+                restoreMenuState();
+            </script>
+
+            <div id="CONTENTSIDE">
+                <ui:insert name="messageHandler">
+                    <h:form id="globalMsg" >
+                        <p:dialog widgetVar="globalMsgDialog" modal="true" minWidth="200" visible="#{not empty facesContext.messageList}" header="Notice" >
+                            <h:messages id="messages" showDetail="true"  />
+                            <p:commandButton  value="Tamam"  onclick="PF('globalMsgDialog').hide();"></p:commandButton>
+                        </p:dialog>                            
+                    </h:form>
+
+
+
+                </ui:insert>                       
+                <div id="CONTENTSIDEindent">
+
+                    <div class="ContentSideSections" id="PFTopLinksCover">
+                        <a id="LOGOTEXTSIDE" href="#{request.contextPath}/index.xhtml">
+                            <span class="dispBlock logoDarkText fontSize30">Recruitment</span>
+                            <span class="dispBlock logoBlueText fontSize28 regularFont">Corporation Apps</span>
+                        </a>
+  
+                    </div>                        
+                
+                    <!-- header bar end-->
+
+                    <div class="content-container">
+                        <ui:insert name="content">
+                            <div class="ContentSideSections">
+                                <div class="Content100 overHidden TextShadow">
+                                    <span class="fontSize30 TextShadow orange regularFont dispBlock"><ui:insert name="title" /></span>
+                                    <span class="defaultText dispTable"><ui:insert name="description" />
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="ContentSideSections Source">
+                                <ui:insert name="implementation" />
+                            </div>
+
+                            <div id="SourceContentSide" class="ContentSideSections Source">
+                                <div class="Content100 overHidden TextShadow">
+                                    <span class="defaultText">
+                                        <span class="fontSize18 logoBlueText">
+                                            <ui:insert name="source" />
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </ui:insert>
+                    </div>
+
+                    <!-- footer start-->
+                    <div class="ContentSideSections">
+                        <span class="floatLeft fontSize14 gray"><a href="http://localhost:8084/Recruitment">By Ebubekir Gunerhanal</a></span>
+                        
+                        <span class="floatRight fontSize10 gray">Sürüm #{globalBean.version}</span>
+                    </div>
+                    <!-- footer end-->
+
+                </div>
+            </div>
+
+        </div>
+        <!-- PC CONTENT END-->
+
+
+        <ui:insert name="exceptionHandler">
+            <p:ajaxExceptionHandler type="java.lang.Throwable" update="exceptionDialog"  onexception="PF('exceptionDialog').show();" />
+
+            <p:dialog id="exceptionDialog" header="Hata Oluştu" widgetVar="exceptionDialog" height="500px">
+                <h:outputLabel rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" value="Uzun süre işlem yapmadığınız için sayfa oturum süresi dolmuştur. Sayfayı yenileyiniz."/><br/><br/>
+                <p:button onclick="document.location.href = document.location.href;" value="Sayfayı Yenile!" rendered="#{pfExceptionHandler.type == 'javax.faces.application.ViewExpiredException'}" ></p:button><br/><br/>
+                
+                Hata Açıklama : #{pfExceptionHandler.message} <br/><br/><br/><br/>
+                Hata Detayı : <h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" /> <br />
+
+            </p:dialog>
+        </ui:insert>
+        <ui:insert name="status">
+
+            <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                <f:facet name="default">
+                    <h:outputText value="Status: StandBy" />
+                </f:facet>
+
+                <f:facet name="start">
+                    <p:graphicImage name="/main/images/loader.gif" />
+                </f:facet>
+
+                <f:facet name="complete">
+                    <h:outputText value="Status: Completed" />
+                </f:facet>
+            </p:ajaxStatus>
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+            </p:dialog>                
+        </ui:insert>
+
+        <ui:insert name="highlight">
+            <h:outputScript name="main/js/sh.js" target="body"/>
+        </ui:insert>
+
+        <ui:insert name="body"></ui:insert>
+
+    </html>

@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <p:dialog id="kullaniciDialog" header="Kullanıcı Bilgisi" widgetVar="kullaniciDialogWid" width="600px">
+        <p:panel header="Kullanıcı bilgileri">
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4">
+                    Adı Soyadı
+                </div>
+                <div class="ui-g-8">
+                    <p:inputText readonly="true" value="#{kullaniciDialogBean.kullanici.adi} #{kullaniciDialogBean.kullanici.soyadi}"/>
+                </div>
+            </div>
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4">
+                    Ünvanı
+                </div>
+                <div class="ui-g-8">
+                    <p:inputText readonly="true" value="#{kullaniciDialogBean.kullanici.unvani}"/>
+                </div>
+            </div>                            
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4">
+                    TCKN
+                </div>
+                <div class="ui-g-8">
+                    <p:inputText readonly="true" value="#{kullaniciDialogBean.kullanici.tckn}"/>
+                </div>
+            </div> 
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4">
+                    Birim
+                </div>
+                <div class="ui-g-8">
+                    <p:inputText readonly="true" value="#{kullaniciDialogBean.kullanici.birimAdi}"/>
+                </div>
+            </div>                             
+            <div class="ui-g ui-fluid">
+                <div class="ui-g-4">
+                    E posta
+                </div>
+                <div class="ui-g-8">
+                    <p:inputText readonly="true" value="#{kullaniciDialogBean.kullanici.eposta}"/>
+                </div>
+            </div>                             
+        </p:panel>              
+
+    </p:dialog>
+</ui:composition>

@@ -1,0 +1,30 @@
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#160;">
+    <!ENTITY bull "&#8226;">
+    <!ENTITY copy "&#169;">
+    ]>
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:h="http://java.sun.com/jsf/html"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:p="http://primefaces.org/ui"
+                    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+        <div class="MenuSideMainLink bordersOfMenuSide">
+            <h:graphicImage name="main/images/zoom.svg" class="zoomIcon"/>
+            <input id="menuSearch" type="text" placeholder="Find in the menu" class="boldFont fontSize14 mustClose searchInput"/>
+        </div>
+        
+        <c:if test="#{user!=null}">
+        <span id="RECRUITMENT" class="MenuSideMainLink bordersOfMenuSide" onclick="Showcase.openSubMenu(this);">
+            <h:graphicImage name="main/images/snipicons/tint-128.png" />
+            <span class="MainLinkText">Recruitment App</span>
+        </span>
+        
+        <div class="SubMenuLinkContainer">
+            <a class="SubMenuLink" onclick="Showcase.openSubSubMenu(this);" href="#{request.contextPath}/secure/recruitment/addCandidate.xhtml">&bull; Save Candidate</a> 
+        </div> 
+        </c:if>
+        
+        
+    </ui:composition>

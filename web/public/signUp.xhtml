@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/loginTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="main/js/index.js" target="head" />
+
+        <!-- highlight area start-->
+        <div class="ContentSideSections overHidden">
+            <div class="Content33 floatLeft overHidden TextShadow" style="min-width: 500px;">
+                <h:form id="mainForm">
+                    <span class="defaultTopic regularFont dispTable">Create your account</span>
+                    <p:panel id="saveArea">
+                        <div class="ui-g ui-fluid" >
+                            <div class="ui-g-8">
+                                <p:inputText value="#{signUpBean.record.emailOrPhone}" placeholder="Mobile Number or Email" required="true" requiredMessage="Please enter your emailOrPhone!"/>
+                            </div>                            
+                        </div>
+                        <div class="ui-g ui-fluid" >
+                            <div class="ui-g-8">
+                                <p:inputText value="#{signUpBean.record.fullName}" placeholder="Full Name" required="true" requiredMessage="Please enter your fullname!"/>
+                            </div>                            
+                        </div>
+                        <div class="ui-g ui-fluid" >
+                            <div class="ui-g-8">
+                                <p:inputText value="#{signUpBean.record.userName}" placeholder="Username" required="true" requiredMessage="Please enter your username!"/>
+                            </div>                            
+                        </div>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-8">
+                                <p:password value="#{signUpBean.record.password}" placeholder="Password"  required="true" requiredMessage="Please enter your password!"/>
+                            </div>                            
+                        </div>
+                        <div class="ui-g ui-fluid">
+                            <div class="ui-g-8">
+                                <p:commandButton  value="Sign up" icon="fa fa-unlock" styleClass="BigButton ui-priority-primary" 
+                                                  process="saveArea" update="saveArea,globalMsg" action="#{signUpBean.saveRecord()}"/>
+                            </div>
+                        </div>
+
+                    </p:panel>
+                </h:form>                
+            </div>
+        </div>
+        <!-- highlight area end-->
+
+
+        <!-- bottom boxes area end-->
+    </ui:define>
+
+</ui:composition>

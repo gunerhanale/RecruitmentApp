@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+       
+    <p:growl widgetVar="bilgilendirmeMesajWid" id="bilgilendirmeMesaj" sticky="true"></p:growl>
+        <p:socket channel="/bilgilendirmeKanali" onMessage="handleMessage">
+          
+        </p:socket>        
+        <script type="text/javascript">
+            function handleMessage(data) {
+                console.log("DATA::",data.facesMessage);
+                
+                if(data.islem == 'SAYAFAYA_GIT'){
+                    var facesMessage = {};
+                    facesMessage.severity = "info";
+                    facesMessage.summary =  data.mesaj;
+                    PF('bilgilendirmeMesajWid').renderMessage(facesMessage);
+                    setTimeout(function(){window.location.href = data.link;},1000*data.islemGecikmeSuresi);
+                }
+                if(data.islem == 'MESAJ_GONDER'){
+                    var facesMessage = {};
+                    facesMessage.severity = "info";
+                    facesMessage.summary =  data.mesaj;
+                    setTimeout(function(){PF('bilgilendirmeMesajWid').renderMessage(facesMessage);},1000*data.islemGecikmeSuresi);
+                }                
+
+            }
+        </script>           
+
+</ui:composition>
