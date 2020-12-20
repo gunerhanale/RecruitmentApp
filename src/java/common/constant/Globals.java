@@ -4,7 +4,7 @@ import java.util.Locale;
 
 public class Globals {
     public static final boolean DEBUG = false;
-    public static final String VERSION = "1.011";
+    public static final String VERSION = "1.013";
     public static final String APP_NAME = "Recruitment";
     public static final Locale LOCALE = new Locale("tr", "TR");
     public static final String DATE_FORMAT_DB = "yyyyMMdd";
