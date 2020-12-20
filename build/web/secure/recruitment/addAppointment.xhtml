@@ -56,14 +56,6 @@
                                 <p:inputText value="#{addAppointmentBean.filter.purpose}"></p:inputText> 
                             </div> 
                         </div>  
-                        <div class="ui-g ui-fluid">
-                            <div class="ui-g-4 ui-md-4">
-                                <h:outputLabel value="Explain" />
-                            </div>  
-                            <div class="ui-g-8 ui-md-8">
-                                <p:inputTextarea value="#{addAppointmentBean.filter.purpose}"></p:inputTextarea>
-                            </div> 
-                        </div>
 
                         <div class="ui-g ui-fluid">
                             <div class="ui-g-4 ui-md-4">
@@ -83,7 +75,7 @@
                         </div>
                                                   
                         <div class="ui-g ui-fluid">
-                            <p:commandButton icon="ui-icon-search"  value="#{bundle.ARA}" process="filterArea" update="schedule" action="#{addAppointmentBean.initEventModel()}"></p:commandButton>
+                            <p:commandButton icon="ui-icon-search"  value="Search" process="filterArea" update="schedule" action="#{addAppointmentBean.initEventModel()}"></p:commandButton>
                         </div>                    
                     </p:panel> 
                     <p:spacer></p:spacer>
@@ -136,14 +128,14 @@
                         </div>  
                         <div class="ui-g-3 ui-md-3">
                             <p:calendar  value="#{addAppointmentBean.event.data.startDate}" pattern="#{globalBean.dateTimePattern}" showButtonPanel="true" > 
-                                <p:ajax event="change" process="@this" update="endDate" listener="#{addAppointmentBean.startDateChange}" />
+                                <p:ajax event="change" process="@this" update="finishDate" listener="#{addAppointmentBean.startDateChange}" />
                             </p:calendar>
                         </div> 
                         <div class="ui-g-3 ui-md-3">
                             <h:outputLabel value="End Date" />
                         </div>  
                         <div class="ui-g-3 ui-md-3">
-                            <p:calendar id="endDate" value="#{addAppointmentBean.event.data.finishDate}" pattern="#{globalBean.dateTimePattern}"  showButtonPanel="true" />  
+                            <p:calendar id="finishDate" value="#{addAppointmentBean.event.data.finishDate}" pattern="#{globalBean.dateTimePattern}"  showButtonPanel="true" />  
                         </div> 
                     </div>
                                        
@@ -152,7 +144,7 @@
                             <h:outputLabel value="Phone" />
                         </div>  
                         <div class="ui-g-9 ui-md-9">
-                            <p:inputMask  mask="(999) 9999" value="#{addAppointmentBean.event.data.phone}"></p:inputMask> 
+                            <p:inputMask  mask="+31 999 999 999" value="#{addAppointmentBean.event.data.phone}"></p:inputMask> 
                         </div> 
                     </div>
                     <div class="ui-g ui-fluid">
@@ -166,14 +158,12 @@
 
                     <p:toolbar>
                         <p:toolbarGroup align="left" >
-                            <p:commandButton value="#{bundle.KAYDET}" icon="ui-icon-disk" action="#{addAppointmentBean.saveRecord}" process="saveArea" update="saveArea,schedule,globalMsg"  />
+                            <p:commandButton value="Save" icon="ui-icon-disk" action="#{addAppointmentBean.saveRecord}" process="saveArea" update="saveArea,schedule,globalMsg"  />
                         </p:toolbarGroup> 
                         <p:toolbarGroup align="right">
-                            <c:if test="#{globalBean.isUserAuthorized()}">
                                 <p:commandButton value="Remove" icon="fa fa-rotate-left" action="#{addAppointmentBean.removeRecord}" process="saveArea" update="schedule,globalMsg"  >
                                     <p:confirm  message="Are you sure to remove this data?" icon="ui-icon-alert" />
                                 </p:commandButton>
-                            </c:if>
                         </p:toolbarGroup> 
 
                     </p:toolbar>                       

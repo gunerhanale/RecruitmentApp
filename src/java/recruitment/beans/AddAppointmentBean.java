@@ -93,7 +93,7 @@ public class AddAppointmentBean {
         candList = CommonUtil.convert(dbService.em.createNamedQuery("Candidates.findAll", Candidates.class).getResultList(), new CandidateToSelectItemConverter());
     }
 
-    public void initEventModel() {
+     public void initEventModel() {
         eventModel = new DefaultScheduleModel();
         appointmentDbService = new AppointmentDbService();
         records = appointmentDbService.appStatusModelFetchFilter(filter);
@@ -105,27 +105,22 @@ public class AddAppointmentBean {
             if (!CommonUtil.isEmpty(appointment.getStartDate()) && !CommonUtil.isEmpty(appointment.getFinishDate())) {
 
                 DefaultScheduleEvent row = new DefaultScheduleEvent(aciklama, appointment.getStartDate(), appointment.getFinishDate(), appointment);
-                // showcase.css event renkleri
-//                if (SalonOnayDurumEnum.ONAYLANDI.toString().equals(tahsis.getIslemDurumu())) {
-//                    row.setStyleClass("event" + tahsis.getToplantiSalonu() % 7 + "onay");
-//                } else if (SalonOnayDurumEnum.IPTAL.toString().equals(tahsis.getIslemDurumu())) {
-//                    row.setStyleClass("event" + tahsis.getToplantiSalonu() % 7 + "iptal");
-//                } else {
-//                    row.setStyleClass("event" + tahsis.getToplantiSalonu() % 7 + "");
-//                }
+                
                 row.setStyleClass("event" + appointment.getCandidateId().intValue() % 7 + "");
                 eventModel.addEvent(row);
             }
         }
     }
-
+    
     public void saveRecord() throws Exception {
         dbService = new RecruitmentDbService();
 
         if (CommonUtil.isEmpty(record.getId())) {
             record.setId(dbService.getSequenceBigIntValue("seq_appointment_id"));
+            record.setRecordDate(CommonUtil.getCurrentTime());
         }
-        record.setRecordDate(CommonUtil.getCurrentTime());
+        record.setAppUserId(JsfHelper.getUser().getUserId());
+        record.setLastUpdate(CommonUtil.getCurrentTime());
         dbService.edit(record);
         init();
         JsfHelper.addSuccessMessage(Messages.getSaveSuccessMsg());
@@ -166,8 +161,8 @@ public class AddAppointmentBean {
         initRecord();
         record.setStartDate(start);
         record.setFinishDate(end);
-        Appointment tahsis = (Appointment) event.getData();
-        this.event = new DefaultScheduleEvent("", start, end, tahsis);
+        Appointment appointment = (Appointment) event.getData();
+        this.event = new DefaultScheduleEvent("", start, end, appointment);
 
     }
 
